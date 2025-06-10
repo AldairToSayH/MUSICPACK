@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sep | Artista Musical </title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Press+Start+2P&family=Syne:wght@400;700&display=swap');
+        
+        :root {
+            --neon-purple: #bc13fe;
+            --neon-blue: #0ff0fc;
+            --neon-pink: #ff44cc;
+            --dark-bg: #0a0a0a;
+        }
+        
+        body {
+            font-family: 'Syne', sans-serif;
+            background-color: var(--dark-bg);
+            color: white;
+            scroll-behavior: smooth;
+        }
+        
+        .neon-text {
+            text-shadow: 0 0 5px var(--neon-purple), 0 0 10px var(--neon-purple), 0 0 20px var(--neon-purple);
+            animation: flicker 1.5s infinite alternate;
+        }
+        
+        .neon-border {
+            box-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue), inset 0 0 5px var(--neon-blue);
+        }
+        
+        .neon-button {
+            transition: all 0.3s ease;
+            box-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink);
+        }
+        
+        .neon-button:hover {
+            box-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink), 0 0 30px var(--neon-pink);
+            transform: translateY(-2px);
+        }
+        
+        .glitch {
+            position: relative;
+        }
+        
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--neon-blue);
+            animation: glitch-anim 2s infinite linear alternate-reverse;
+        }
+        
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 var(--neon-pink);
+            animation: glitch-anim 2s infinite linear alternate-reverse;
+        }
+        
+        @keyframes flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                text-shadow: 0 0 5px var(--neon-purple), 0 0 10px var(--neon-purple), 0 0 20px var(--neon-purple);
+            }
+            20%, 24%, 55% {
+                text-shadow: none;
+            }
+        }
+        
+        @keyframes glitch-anim {
+            0% {
+                clip: rect(32px, 9999px, 76px, 0);
+            }
+            10% {
+                clip: rect(8px, 9999px, 44px, 0);
+            }
+            20% {
+                clip: rect(76px, 9999px, 124px, 0);
+            }
+            30% {
+                clip: rect(32px, 9999px, 76px, 0);
+            }
+            40% {
+                clip: rect(88px, 9999px, 136px, 0);
+            }
+            50% {
+                clip: rect(8px, 9999px, 44px, 0);
+            }
+            60% {
+                clip: rect(32px, 9999px, 76px, 0);
+            }
+            70% {
+                clip: rect(128px, 9999px, 172px, 0);
+            }
+            80% {
+                clip: rect(32px, 9999px, 76px, 0);
+            }
+            90% {
+                clip: rect(8px, 9999px, 44px, 0);
+            }
+            100% {
+                clip: rect(32px, 9999px, 76px, 0);
+            }
+        }
+        
+        .section {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+        
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .album-cover {
+            transition: all 0.5s ease;
+        }
+        
+        .album-cover:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px var(--neon-pink), 0 0 30px var(--neon-pink);
+        }
+        
+        .gallery-item {
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+        
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px);
+            filter: drop-shadow(0 0 5px var(--neon-purple));
+        }
+        
+        .video-container {
+            position: relative;
+            overflow: hidden;
+            height: 100vh;
+        }
+        
+        .video-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.5;
+        }
+        
+        .hero-content {
+            z-index: 10;
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--neon-pink);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .form-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 10px var(--neon-blue);
+            background: rgba(255, 255, 255, 0.15);
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+    <!-- Floating Social Icons -->
+    <div class="fixed right-6 bottom-6 z-50 flex flex-col space-y-4">
+        <a href="#" class="social-icon text-2xl text-white hover:text-purple-400"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-icon text-2xl text-white hover:text-blue-400"><i class="fab fa-tiktok"></i></a>
+        <a href="#" class="social-icon text-2xl text-white hover:text-pink-400"><i class="fab fa-youtube"></i></a>
+        <a href="#" class="social-icon text-2xl text-white hover:text-blue-300"><i class="fab fa-spotify"></i></a>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-40 bg-black bg-opacity-80 backdrop-filter backdrop-blur-lg">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-2xl font-bold neon-text">NEXA</div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link text-white hover:text-purple-300">Inicio</a>
+                    <a href="#about" class="nav-link text-white hover:text-blue-300">Sobre mí</a>
+                    <a href="#music" class="nav-link text-white hover:text-pink-300">Música</a>
+                    <a href="#shows" class="nav-link text-white hover:text-purple-300">Conciertos</a>
+                    <a href="#gallery" class="nav-link text-white hover:text-blue-300">Galería</a>
+                    <a href="#contact" class="nav-link text-white hover:text-pink-300">Contacto</a>
+                </div>
+                <button class="md:hidden text-white focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="video-container">
+        <video autoplay muted loop class="video-bg">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-concert-audience-enjoying-music-435-large.mp4" type="video/mp4">
+        </video>
+        <div class="hero-content absolute inset-0 flex flex-col justify-center items-center text-center px-4">
+            <h1 class="glitch text-5xl md:text-8xl font-bold mb-6 neon-text" data-text="NEXA">NEXA</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto text-gray-300">Hola Milagros Estephany!!</p>
+            <a href="#music" class="neon-button bg-transparent border-2 border-purple-500 text-white px-8 py-3 rounded-full font-bold text-lg hover:bg-purple-500 hover:border-purple-500">Escucha mi música</a>
+        </div>
+        <div class="absolute bottom-10 left-0 right-0 flex justify-center animate-bounce">
+            <a href="#about" class="text-white text-2xl"><i class="fas fa-chevron-down"></i></a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section py-20 bg-gradient-to-b from-black to-gray-900">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center neon-text">SOBRE MÍ</h2>
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10">
+                    <div class="neon-border rounded-lg overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="NEXA" class="w-full h-auto">
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <h3 class="text-3xl font-bold mb-6 text-purple-300">La mente detrás de la música</h3>
+                    <p class="text-lg mb-6 text-gray-300">NEXA es un proyecto musical que fusiona elementos de electropop, synthwave y rock alternativo, creando un sonido único que transporta al oyente a paisajes sonoros futuristas.</p>
+                    <p class="text-lg mb-6 text-gray-300">Comencé mi viaje musical a los 14 años, experimentando con sintetizadores y grabaciones caseras. Lo que empezó como un hobby se convirtió en mi pasión y forma de vida.</p>
+                    <p class="text-lg mb-8 text-gray-300">Mi música explora temas de identidad, tecnología y emociones humanas en la era digital, siempre buscando empujar los límites de lo convencional.</p>
+                    <div class="flex space-x-4">
+                        <span class="px-4 py-2 bg-purple-900 bg-opacity-50 rounded-full text-purple-300">Electropop</span>
+                        <span class="px-4 py-2 bg-blue-900 bg-opacity-50 rounded-full text-blue-300">Synthwave</span>
+                        <span class="px-4 py-2 bg-pink-900 bg-opacity-50 rounded-full text-pink-300">Rock Alternativo</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Music Section -->
+    <section id="music" class="section py-20 bg-black">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center neon-text">MÚSICA</h2>
+            
+            <!-- Featured Album -->
+            <div class="mb-20">
+                <h3 class="text-2xl md:text-3xl font-bold mb-8 text-purple-300">Último lanzamiento</h3>
+                <div class="flex flex-col md:flex-row items-center bg-gray-900 bg-opacity-50 rounded-lg p-6 neon-border">
+                    <div class="md:w-1/3 mb-6 md:mb-0">
+                        <div class="album-cover rounded-lg overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Álbum Digital Dreams" class="w-full h-auto">
+                        </div>
+                    </div>
+                    <div class="md:w-2/3 md:pl-10">
+                        <h4 class="text-2xl font-bold mb-2 text-white">DIGITAL DREAMS</h4>
+                        <p class="text-gray-400 mb-4">Álbum • 2023 • 10 canciones</p>
+                        <p class="text-gray-300 mb-6">Una odisea sonora que explora la relación entre humanos y máquinas, entre emociones reales y digitales. Cada track es un viaje a través de paisajes electrónicos y letras introspectivas.</p>
+                        <div class="flex flex-wrap gap-4 mb-6">
+                            <a href="#" class="neon-button bg-purple-600 px-6 py-2 rounded-full text-white hover:bg-purple-700"><i class="fab fa-spotify mr-2"></i> Spotify</a>
+                            <a href="#" class="neon-button bg-red-600 px-6 py-2 rounded-full text-white hover:bg-red-700"><i class="fab fa-youtube mr-2"></i> YouTube</a>
+                            <a href="#" class="neon-button bg-white px-6 py-2 rounded-full text-black hover:bg-gray-200"><i class="fab fa-apple mr-2"></i> Apple Music</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Discography -->
+            <h3 class="text-2xl md:text-3xl font-bold mb-8 text-blue-300">Discografía</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Album 1 -->
+                <div class="album-cover bg-gray-900 bg-opacity-50 rounded-lg overflow-hidden neon-border p-4">
+                    <img src="https://images.unsplash.com/photo-1496293455970-f8581aae0e3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1113&q=80" alt="Álbum Neon Shadows" class="w-full h-64 object-cover rounded mb-4">
+                    <h4 class="text-xl font-bold mb-2 text-white">NEON SHADOWS</h4>
+                    <p class="text-gray-400 mb-3">EP • 2021 • 6 canciones</p>
+                    <div class="flex justify-between items-center">
+                        <a href="#" class="text-purple-300 hover:text-purple-200"><i class="fas fa-play-circle text-xl"></i></a>
+                        <a href="#" class="text-sm text-gray-400 hover:text-white">Ver letras</a>
+                    </div>
+                </div>
+                
+                <!-- Album 2 -->
+                <div class="album-cover bg-gray-900 bg-opacity-50 rounded-lg overflow-hidden neon-border p-4">
+                    <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Álbum Electric Heart" class="w-full h-64 object-cover rounded mb-4">
+                    <h4 class="text-xl font-bold mb-2 text-white">ELECTRIC HEART</h4>
+                    <p class="text-gray-400 mb-3">Álbum • 2020 • 12 canciones</p>
+                    <div class="flex justify-between items-center">
+                        <a href="#" class="text-purple-300 hover:text-purple-200"><i class="fas fa-play-circle text-xl"></i></a>
+                        <a href="#" class="text-sm text-gray-400 hover:text-white">Ver letras</a>
+                    </div>
+                </div>
+                
+                <!-- Album 3 -->
+                <div class="album-cover bg-gray-900 bg-opacity-50 rounded-lg overflow-hidden neon-border p-4">
+                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Álbum Static Memories" class="w-full h-64 object-cover rounded mb-4">
+                    <h4 class="text-xl font-bold mb-2 text-white">STATIC MEMORIES</h4>
+                    <p class="text-gray-400 mb-3">Single • 2019</p>
+                    <div class="flex justify-between items-center">
+                        <a href="#" class="text-purple-300 hover:text-purple-200"><i class="fas fa-play-circle text-xl"></i></a>
+                        <a href="#" class="text-sm text-gray-400 hover:text-white">Ver letras</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shows Section -->
+    <section id="shows" class="section py-20 bg-gradient-to-b from-black to-gray-900">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center neon-text">CONCIERTOS</h2>
+            
+            <div class="max-w-4xl mx-auto">
+                <!-- Upcoming Shows -->
+                <h3 class="text-2xl md:text-3xl font-bold mb-8 text-pink-300">Próximas fechas</h3>
+                
+                <div class="space-y-6 mb-12">
+                    <!-- Show 1 -->
+                    <div class="flex flex-col md:flex-row bg-gray-900 bg-opacity-50 rounded-lg overflow-hidden neon-border">
+                        <div class="md:w-1/4 bg-purple-900 bg-opacity-30 p-4 flex flex-col items-center justify-center">
+                            <div class="text-3xl font-bold text-purple-300">15</div>
+                            <div class="text-xl uppercase">OCT</div>
+                            <div class="text-sm">2023</div>
+                        </div>
+                        <div class="md:w-2/4 p-6">
+                            <h4 class="text-xl font-bold mb-2 text-white">NEXA: Digital Dreams Tour</h4>
+                            <p class="text-gray-300 mb-2"><i class="fas fa-map-marker-alt mr-2 text-purple-300"></i> Sala Futura, Madrid</p>
+                            <p class="text-gray-400"><i class="far fa-clock mr-2 text-blue-300"></i> 20:00 - 23:00</p>
+                        </div>
+                        <div class="md:w-1/4 p-6 flex items-center justify-center">
+                            <a href="#" class="neon-button bg-pink-600 px-6 py-2 rounded-full text-white hover:bg-pink-700">Comprar entradas</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Show 2 -->
+                    <div class="flex flex-col md:flex-row bg-gray-900 bg-opacity-50 rounded-lg overflow-hidden neon-border">
+                        <div class="md:w-1/4 bg-blue-900 bg-opacity-30 p-4 flex flex-col items-center justify-center">
+                            <div class="text-3xl font-bold text-blue-300">28</div>
+                            <div class="text-xl uppercase">OCT</div>
+                            <div class="text-sm">2023</div>
+                        </div>
+                        <div class="md:w-2/4 p-6">
+                            <h4 class="text-xl font-bold mb-2 text-white">Festival Electrónico</h4>
+                            <p class="text-gray-300 mb-2"><i class="fas fa-map-marker-alt mr-2 text-blue-300"></i> Parque de la Música, Barcelona</p>
+                            <p class="text-gray-400"><i class="far fa-clock mr-2 text-purple-300"></i> 18:30 - 19:30</p>
+                        </div>
+                        <div class="md:w-1/4 p-6 flex items-center justify-center">
+                            <a href="#" class="neon-button bg-pink-600 px-6 py-2 rounded-full text-white hover:bg-pink-700">Comprar entradas</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Show 3 -->
+                    <div class="flex flex-col md:flex-row bg-gray-900 bg-opacity-50 rounded-lg overflow-hidden neon-border">
+                        <div class="md:w-1/4 bg-pink-900 bg-opacity-30 p-4 flex flex-col items-center justify-center">
+                            <div class="text-3xl font-bold text-pink-300">05</div>
+                            <div class="text-xl uppercase">NOV</div>
+                            <div class="text-sm">2023</div>
+                        </div>
+                        <div class="md:w-2/4 p-6">
+                            <h4 class="text-xl font-bold mb-2 text-white">NEXA: Digital Dreams Tour</h4>
+                            <p class="text-gray-300 mb-2"><i class="fas fa-map-marker-alt mr-2 text-pink-300"></i> Sala Neo, Valencia</p>
+                            <p class="text-gray-400"><i class="far fa-clock mr-2 text-blue-300"></i> 21:00 - 00:00</p>
+                        </div>
+                        <div class="md:w-1/4 p-6 flex items-center justify-center">
+                            <a href="#" class="neon-button bg-pink-600 px-6 py-2 rounded-full text-white hover:bg-pink-700">Comprar entradas</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Past Shows -->
+                <h3 class="text-2xl md:text-3xl font-bold mb-8 text-purple-300">Fechas anteriores</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="bg-gray-900 bg-opacity-30 p-4 rounded-lg neon-border">
+                        <div class="text-sm text-gray-400 mb-2">12 SEP 2023</div>
+                        <h4 class="text-lg font-bold mb-1">Sala Futuro</h4>
+                        <p class="text-gray-300">Bilbao, España</p>
+                    </div>
+                    <div class="bg-gray-900 bg-opacity-30 p-4 rounded-lg neon-border">
+                        <div class="text-sm text-gray-400 mb-2">25 AGO 2023</div>
+                        <h4 class="text-lg font-bold mb-1">Festival Electropop</h4>
+                        <p class="text-gray-300">Sevilla, España</p>
+                    </div>
+                    <div class="bg-gray-900 bg-opacity-30 p-4 rounded-lg neon-border">
+                        <div class="text-sm text-gray-400 mb-2">14 JUL 2023</div>
+                        <h4 class="text-lg font-bold mb-1">Club Digital</h4>
+                        <p class="text-gray-300">Lisboa, Portugal</p>
+                    </div>
+                    <div class="bg-gray-900 bg-opacity-30 p-4 rounded-lg neon-border">
+                        <div class="text-sm text-gray-400 mb-2">30 JUN 2023</div>
+                        <h4 class="text-lg font-bold mb-1">Sala Neo</h4>
+                        <p class="text-gray-300">Barcelona, España</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="section py-20 bg-black">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center neon-text">GALERÍA</h2>
+            
+            <!-- Photo Gallery -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+                <div class="gallery-item rounded-lg overflow-hidden neon-border">
+                    <img src="https://images.unsplash.com/photo-1501612780327-45045538702b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Concierto en vivo" class="w-full h-64 object-cover">
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden neon-border">
+                    <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Concierto en vivo" class="w-full h-64 object-cover">
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden neon-border">
+                    <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Estudio de grabación" class="w-full h-64 object-cover">
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden neon-border">
+                    <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Sesión de fotos" class="w-full h-64 object-cover">
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden neon-border">
+                    <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Detrás de escenas" class="w-full h-64 object-cover">
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden neon-border">
+                    <img src="https://images.unsplash.com/photo-1508700115892-45ecd5ae373d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80" alt="Concierto en vivo" class="w-full h-64 object-cover">
+                </div>
+            </div>
+            
+            <!-- Video Gallery -->
+            <h3 class="text-2xl md:text-3xl font-bold mb-8 text-blue-300">Videoclips</h3>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="neon-border rounded-lg overflow-hidden">
+                    <div class="aspect-w-16 aspect-h-9">
+                        <iframe class="w-full h-96" src="https://www.youtube.com/@aldairzavala2002" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="text-xl font-bold mb-2 text-white">Digital Dreams (Official Video)</h4>
+                        <p class="text-gray-300">Videoclip oficial del sencillo principal del último álbum, dirigido por Marina Futura.</p>
+                    </div>
+                </div>
+                <div class="neon-border rounded-lg overflow-hidden">
+                    <div class="aspect-w-16 aspect-h-9">
+                        <iframe class="w-full h-96" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="text-xl font-bold mb-2 text-white">Neon Love (Live Session)</h4>
+                        <p class="text-gray-300">Sesión en vivo grabada en el estudio para el programa "Música Futura".</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section py-20 bg-gradient-to-b from-gray-900 to-black">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center neon-text">CONTACTO</h2>
+            
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="lg:w-1/2">
+                    <h3 class="text-2xl md:text-3xl font-bold mb-6 text-pink-300">Booking & Colaboraciones</h3>
+                    <p class="text-lg mb-8 text-gray-300">¿Quieres que actúe en tu evento? ¿Interesado en una colaboración musical? Completa el formulario y me pondré en contacto contigo lo antes posible.</p>
+                    
+                    <form class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-gray-300 mb-2">Nombre</label>
+                            <input type="text" id="name" class="form-input w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-gray-300 mb-2">Email</label>
+                            <input type="email" id="email" class="form-input w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label for="subject" class="block text-gray-300 mb-2">Asunto</label>
+                            <select id="subject" class="form-input w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
+                                <option value="">Selecciona una opción</option>
+                                <option value="booking">Booking para concierto</option>
+                                <option value="collab">Colaboración musical</option>
+                                <option value="press">Prensa/Entrevistas</option>
+                                <option value="other">Otro</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="message" class="block text-gray-300 mb-2">Mensaje</label>
+                            <textarea id="message" rows="5" class="form-input w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                        </div>
+                        <button type="submit" class="neon-button bg-purple-600 px-8 py-3 rounded-full text-white font-bold hover:bg-purple-700">Enviar mensaje</button>
+                    </form>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <h3 class="text-2xl md:text-3xl font-bold mb-6 text-blue-300">Redes Sociales</h3>
+                    <p class="text-lg mb-8 text-gray-300">Sígueme en redes sociales para estar al día de mis últimos lanzamientos, conciertos y contenido exclusivo.</p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
+                        <a href="#" class="flex items-center p-4 bg-gray-800 bg-opacity-50 rounded-lg neon-border hover:bg-gray-700">
+                            <div class="text-3xl mr-4 text-pink-500"><i class="fab fa-instagram"></i></div>
+                            <div>
+                                <h4 class="font-bold text-white">Instagram</h4>
+                                <p class="text-sm text-gray-400">@nexaofficial</p>
+                            </div>
+                        </a>
+                        <a href="#" class="flex items-center p-4 bg-gray-800 bg-opacity-50 rounded-lg neon-border hover:bg-gray-700">
+                            <div class="text-3xl mr-4 text-blue-400"><i class="fab fa-tiktok"></i></div>
+                            <div>
+                                <h4 class="font-bold text-white">TikTok</h4>
+                                <p class="text-sm text-gray-400">@nexamusic</p>
+                            </div>
+                        </a>
+                        <a href="#" class="flex items-center p-4 bg-gray-800 bg-opacity-50 rounded-lg neon-border hover:bg-gray-700">
+                            <div class="text-3xl mr-4 text-green-500"><i class="fab fa-spotify"></i></div>
+                            <div>
+                                <h4 class="font-bold text-white">Spotify</h4>
+                                <p class="text-sm text-gray-400">NEXA</p>
+                            </div>
+                        </a>
+                        <a href="#" class="flex items-center p-4 bg-gray-800 bg-opacity-50 rounded-lg neon-border hover:bg-gray-700">
+                            <div class="text-3xl mr-4 text-red-500"><i class="fab fa-youtube"></i></div>
+                            <div>
+                                <h4 class="font-bold text-white">YouTube</h4>
+                                <p class="text-sm text-gray-400">NEXA Music</p>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <h3 class="text-2xl md:text-3xl font-bold mb-6 text-purple-300">Newsletter</h3>
+                    <p class="text-lg mb-4 text-gray-300">Suscríbete para recibir noticias exclusivas, contenido detrás de escenas y acceso anticipado a nuevos lanzamientos.</p>
+                    <div class="flex">
+                        <input type="email" placeholder="Tu email" class="form-input flex-grow px-4 py-3 rounded-l-lg focus:outline-none">
+                        <button class="neon-button bg-purple-600 px-6 py-3 rounded-r-lg text-white font-bold hover:bg-purple-700">Suscribirse</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-12 border-t border-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <div class="text-3xl font-bold neon-text">NEXA</div>
+                    <p class="text-gray-500 mt-2">Música para la era digital</p>
+                </div>
+                <div class="flex space-x-6 mb-6 md:mb-0">
+                    <a href="#" class="text-gray-400 hover:text-purple-300 text-xl"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-blue-300 text-xl"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-green-500 text-xl"><i class="fab fa-spotify"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-red-500 text-xl"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-apple"></i></a>
+                </div>
+                <div class="text-gray-500 text-sm">
+                    &copy; 2023 NEXA Music. Todos los derechos reservados.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.section');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Mobile menu toggle (would need additional implementation)
+            const mobileMenuButton = document.querySelector('.md\\:hidden');
+            mobileMenuButton.addEventListener('click', function() {
+                // This would toggle a mobile menu (not implemented in this example)
+                alert('Menú móvil se abriría aquí en una implementación completa');
+            });
+        });
+    </script>
+</body>
+</html>
